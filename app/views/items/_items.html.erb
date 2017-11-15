@@ -1,7 +1,7 @@
-<% if items %>
+<% if items.present? %>
 
- <div class="row">
-   
+   <div class="row">
+     
 <% items.each do |item| %>
 
     <div class="item">
@@ -14,16 +14,35 @@
 
           </div>
           <div class="panel-body">
+            
+<% if item.persisted? %>
+
             <p class="item-title">
+<%= link_to item.name, item %>
+            </p>
+            
+<% else %>
+
+          <p class="item-title">
 <%= item.name %>
-</p>
+          </p>
+          
+<% end %>
+            
+            <div class="buttons text-center">
+              
+<% if logged_in? %>
+              
+<%= render 'ownerships/want_button', item: item %>
+
+<% end %>
+            </div>
           </div>
         </div>
       </div>
     </div>
-    
+
 <% end %>
 
- </div>
- 
- <% end %>
+   </div>
+<% end %>
